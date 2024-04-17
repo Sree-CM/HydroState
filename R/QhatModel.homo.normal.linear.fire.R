@@ -101,7 +101,7 @@ setMethod(f="getMean",signature=c("QhatModel.homo.normal.linear.fire","data.fram
               ind=ind+1
               fire.Qhat((i+tlag):nrows,ind) =Kuczera(Lmax*K(t-tlag)*exp(1-K(t-tlag)))
               }
-            Qhat.model =Qhat.model-colsum(fire.Qhat)
+            Qhat.model =Qhat.model-colSums(fire.Qhat)
             return(Qhat.model)
           }
 )
