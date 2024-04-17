@@ -6,7 +6,7 @@ QhatModel.homo.normal.linear.fire <- setClass(  #class
 
   package='hydroState',
 
-  contains=c('QhatModel.homo.normal.linear'),#Parent
+  contains=c('QhatModel.homo.normal.linear'),#Parent file
 
 
   # Set the default values for the slots. (optional)
@@ -99,7 +99,7 @@ setMethod(f="getMean",signature=c("QhatModel.homo.normal.linear.fire","data.fram
             K =.Object@parameters@Kuczera.K@value
             for (i in fire.year){
               ind=ind+1
-              fire.Qhat((i+tlag):nrows,ind) =Kuczera(eqn)
+              fire.Qhat((i+tlag):nrows,ind) =Kuczera(Lmax*K(t-tlag)*exp(1-K(t-tlag)))
               }
             Qhat.model =Qhat.model-colsum(fire.Qhat)
             return(Qhat.model)
