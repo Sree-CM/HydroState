@@ -42,3 +42,4 @@ Collate:
     'hydroState.allModels.R'
     'hydroState.subAnnual.allModels.R'
     'markov.annualHomogeneous.flickering.R'
+    'QhatModel.homo.normal.linear.fire.R'
