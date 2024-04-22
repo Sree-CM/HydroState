@@ -98,8 +98,10 @@ setMethod(f="getMean",signature=c("QhatModel.homo.normal.linear.fire","data.fram
             Lmax =.Object@parameters@Kuzera.Lmax@value
             K =.Object@parameters@Kuczera.K@value
             for (i in fire.year){
+              # getting the no. of years by deducing the lag years
+              lagged_year = fire.year-tlag
               ind=ind+1
-              fire.Qhat((i+tlag):nrows,ind) =Kuczera(Lmax*K(t-tlag)*exp(1-K(t-tlag)))
+              fire.Qhat((i+tlag):nrows,ind) =Kuczera(Lmax*K*(data$year-lagged_year)*exp(1-K(data$year-lagged_year)))
               }
             Qhat.model =Qhat.model-colSums(fire.Qhat)
             return(Qhat.model)
