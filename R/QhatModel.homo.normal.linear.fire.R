@@ -32,10 +32,10 @@ setMethod("initialize","QhatModel.homo.normal.linear.fire", function(.Object, in
 
   # Set the number of parameter values per parameter name and set up model terms for mean and standard deviation and trend.
   if (is.na(state.dependent.mean.trend)) {
-    parameter.length <- as.numeric(c(state.dependent.mean.a0, state.dependent.mean.a1, state.dependent.std.a0,1,1,1)) * (.Object@nStates-1) + 1
+    parameter.length <- as.numeric(c(state.dependent.mean.a0, state.dependent.mean.a1, state.dependent.std.a0,0,0,0)) * (.Object@nStates-1) + 1
     .Object@parameters = new('parameters', c('mean.a0', 'mean.a1', 'std.a0','Kuczera.Lmax','Kuczera.K','Kuczera.tlag'), parameter.length)
   } else {
-    parameter.length <- as.numeric(c(state.dependent.mean.a0, state.dependent.mean.a1, state.dependent.mean.trend, state.dependent.std.a0,1,1,1)) * (.Object@nStates-1) + 1
+    parameter.length <- as.numeric(c(state.dependent.mean.a0, state.dependent.mean.a1, state.dependent.mean.trend, state.dependent.std.a0,0,0,0)) * (.Object@nStates-1) + 1
     .Object@parameters = new('parameters', c('mean.a0', 'mean.a1', 'mean.trend', 'std.a0', 'Kuczera.Lmax','Kuczera.K','Kuczera.tlag'), parameter.length)
   }
 
@@ -46,7 +46,7 @@ setMethod("initialize","QhatModel.homo.normal.linear.fire", function(.Object, in
 
 
 # Calculate the transformed flow at the mean annual precip
-setGeneric(name="getMean",def=function(.Object, data) {standardGeneric("getMean")})
+#setGeneric(name="getMean",def=function(.Object, data) {standardGeneric("getMean")})
 setMethod(f="getMean",signature=c("QhatModel.homo.normal.linear.fire","data.frame"),definition=function(.Object, data)
 {
 
@@ -55,15 +55,12 @@ setMethod(f="getMean",signature=c("QhatModel.homo.normal.linear.fire","data.fram
 
             ncols.a1 = length(parameters$mean.a1)
             ncols.a0 = length(parameters$mean.a0)
-            ncols.Kuczera.tlag = length(parameters$Kuczera.tlag)
-            ncols.Kuczera.Lmax = length(parameters$Kuczera.Lmax)
-            ncols.Kuczera.K = length(parameters$Kuczera.K)
             ncols.trend = 0
             if ('mean.trend' %in% names(parameters)) {
               ncols.trend = length(parameters$mean.trend)
             }
             nrows = length(data$Qhat.precipitation);
-            ncols.max = max(c(ncols.a0 ,ncols.a1, ncols.trend, ncols.Kuczera.tlag))
+            ncols.max = max(c(ncols.a0 ,ncols.a1, ncols.trend))
 
             if (ncols.max > .Object@nStates)
               stop(paste('The number of parameters for each term of the mean model must must equal 1 or the number of states of ',.Object@nStates))
@@ -97,13 +94,14 @@ setMethod(f="getMean",signature=c("QhatModel.homo.normal.linear.fire","data.fram
             fire.year = which(.Object@input.data$fire==1)
             fire.Qhat <- matrix(0, nrows, length(fire.year))
             ind =0
-            tlag=.Object@parameters@Kuczera.tlag@value
-            Lmax =.Object@parameters@Kuczera.Lmax@value
-            K =.Object@parameters@Kuczera.K@value
+            #The Kuczera parameters
+            tlag=parameters$Kuczera.tlag
+            Lmax =parameters$Kuczera.Lmax
+            K =parameters$Kuczera.K
             for (i in fire.year){
               # getting the no. of years by deducing the lag years
-              lagged_year = fire.year+tlag
-              years.postfire = pmax(0,data$years - fire.year.tlag)
+              lagged_year = i +tlag
+              years.postfire =  pmax(0,data$year -data$year[lagged_year])
               ind=ind+1
               fire.Qhat[,ind] =Lmax*K*years.postfire*exp(1-K*years.postfire)
               }
