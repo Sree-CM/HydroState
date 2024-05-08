@@ -56,6 +56,8 @@ setMethod(f="getMean",signature=c("QhatModel.homo.normal.linear.fire","data.fram
             ncols.a1 = length(parameters$mean.a1)
             ncols.a0 = length(parameters$mean.a0)
             ncols.Kuczera.tlag = length(parameters$Kuczera.tlag)
+            ncols.Kuczera.Lmax = length(parameters$Kuczera.Lmax)
+            ncols.Kuczera.K = length(parameters$Kuczera.K)
             ncols.trend = 0
             if ('mean.trend' %in% names(parameters)) {
               ncols.trend = length(parameters$mean.trend)
