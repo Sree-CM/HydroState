@@ -1,8 +1,8 @@
 ##' @include abstracts.R parameters.R QhatModel.homo.normal.linear.R
 ##' @export
-QhatModel.homo.normal.linear.fire <- setClass(  #class
+QhatModel.homo.normal.linear.Kuczera.impact <- setClass(  #class
   # Set the name for the class
-  "QhatModel.homo.normal.linear.fire",
+  "QhatModel.homo.normal.linear.Kuczera.impact",
 
   package='hydroState',
 
@@ -22,7 +22,7 @@ QhatModel.homo.normal.linear.fire <- setClass(  #class
 
 # Initialise object
 #setGeneric(name="initialize",def=function(.Object,input.data){standardGeneric("initialize")})
-setMethod("initialize","QhatModel.homo.normal.linear.fire", function(.Object, input.data, use.truncated.dist=T, transition.graph=matrix(T,2,2),
+setMethod("initialize","QhatModel.homo.normal.linear.Kuczera.impact", function(.Object, input.data, use.truncated.dist=T, transition.graph=matrix(T,2,2),
                                                                 state.dependent.mean.a0=T, state.dependent.mean.a1=F, state.dependent.mean.trend=NA, state.dependent.std.a0=T) {
   .Object@input.data <- input.data
 
@@ -47,7 +47,7 @@ setMethod("initialize","QhatModel.homo.normal.linear.fire", function(.Object, in
 
 # Calculate the transformed flow at the mean annual precip
 #setGeneric(name="getMean",def=function(.Object, data) {standardGeneric("getMean")})
-setMethod(f="getMean",signature=c("QhatModel.homo.normal.linear.fire","data.frame"),definition=function(.Object, data)
+setMethod(f="getMean",signature=c("QhatModel.homo.normal.linear.Kuczera.impact","data.frame"),definition=function(.Object, data)
 {
 
             # Get object parameter list
@@ -89,23 +89,47 @@ setMethod(f="getMean",signature=c("QhatModel.homo.normal.linear.fire","data.fram
             # Calculate the non-AR1 componants
             a0.est <- 100 * a0.est
             Qhat.model <- precip.data * a1.est + a0.est + time.vals * trend.est
+            Qhat.fire <- getKuczera(.Object)
+            Qhat.model =Qhat.model - Qhat.fire
+            return(Qhat.model)
+            print( Qhat.model)
+          }
+ )
+# Creating separate function for Kuczera component
+setGeneric(name="getKuczera",def=function(.Object) {standardGeneric("getKuczera")})
+setMethod(f="getKuczera",signature=c("QhatModel.homo.normal.linear.Kuczera.impact"),definition=function(.Object)
+{
+
+            # Get object parameter list
+            parameters = getParameters(.Object@parameters)
 
             #Calculate Kuczera curve fire impact
             fire.year = which(.Object@input.data$fire==1)
+            nrows = nrow(.Object@input.data);
             fire.Qhat <- matrix(0, nrows, length(fire.year))
             ind =0
             #The Kuczera parameters
-            tlag=parameters$Kuczera.tlag
-            Lmax =parameters$Kuczera.Lmax
-            K =parameters$Kuczera.K
+            tlag = parameters$Kuczera.tlag
+            print(tlag)
+            Lmax = parameters$Kuczera.Lmax
+            K = parameters$Kuczera.K
             for (i in fire.year){
               # getting the no. of years by deducing the lag years
-              lagged_year = i +tlag
-              years.postfire =  pmax(0,data$year -data$year[lagged_year])
+              # Message here in the console
+              print(paste("Processing iteration", i))
+              print(paste("Year of fire is  ", fire.year))
+              lagged_year = .Object@input.data$year[i] +tlag
+              print(paste("Year when reduction starts  ", lagged_year))
+              years.postfire =  pmax(0,.Object@input.data$year -lagged_year)
+              #print yeaes.postfire
+              print(paste("No.of years after fire reduction started  ", years.postfire))
               ind=ind+1
               fire.Qhat[,ind] =Lmax*K*years.postfire*exp(1-K*years.postfire)
               }
-            Qhat.model =Qhat.model-colSums(fire.Qhat)
-            return(Qhat.model)
+            print(paste("Kuczera factor-  ", fire.Qhat))
+            Qhat.fire =rowSums(fire.Qhat)
+            print(paste("Reduction in flow due to fire", Qhat.fire))
+            return(Qhat.fire)
+            #plot(.Object@input.data$year,Qhat.fire)
           }
  )
