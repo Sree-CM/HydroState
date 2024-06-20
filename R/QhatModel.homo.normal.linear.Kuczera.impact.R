@@ -93,7 +93,7 @@ setMethod(f="getMean",signature=c("QhatModel.homo.normal.linear.Kuczera.impact",
             Qhat.model =Qhat.model - Qhat.fire
             #saving qhat values to a csv
             #write.table(Qhat.model, file = "intermediate_values.csv", sep = ",", col.names = !file.exists("intermediate_values.csv"), row.names = FALSE)
-            print( Qhat.model)
+            #print( Qhat.model)
             return(Qhat.model)
 
           }
@@ -124,18 +124,18 @@ setMethod(f="getKuczera",signature=c("QhatModel.homo.normal.linear.Kuczera.impac
               lagged_year = .Object@input.data$year[i] +tlag
 
               #Adding a new parameter for considering percentage area
-              BA = .Object@input.data$area_burnt[i]
+              #BA = .Object@input.data$area_burnt[i]
 
               #print(paste("Year when reduction starts  ", lagged_year))
               years.postfire =  pmax(0,.Object@input.data$year -lagged_year)
               #print yeaes.postfire
               #print(paste("No.of years after fire reduction started  ", years.postfire))
               ind=ind+1
-              fire.Qhat[,ind] =BA*Lmax*K*years.postfire*exp(1-K*years.postfire)
+              fire.Qhat[,ind] =Lmax*K*years.postfire*exp(1-K*years.postfire)
               }
             Qhat.fire =rowSums(fire.Qhat)
             #print(paste("Reduction in flow due to fire", Qhat.fire))
-            print(Qhat.fire)
+            #print(Qhat.fire)
             return(Qhat.fire)
             #plot(.Object@input.data$year,Qhat.fire)
           }
