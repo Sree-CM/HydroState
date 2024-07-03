@@ -152,7 +152,7 @@ setMethod(f="setBounds",
                 .Object@upper.bound[[parameter.names[i]]] <- 10;
               } else if (parameter.names[i]=='Kuczera.K') {
                 .Object@lower.bound[[parameter.names[i]]] <- 0;
-                .Object@upper.bound[[parameter.names[i]]] <- 5;
+                .Object@upper.bound[[parameter.names[i]]] <- 1;
               } else if (parameter.names[i]=='Kuczera.tlag') {
                 .Object@lower.bound[[parameter.names[i]]] <- 0;
                 .Object@upper.bound[[parameter.names[i]]] <- 10;

@@ -44,3 +44,4 @@ Collate:
     'markov.annualHomogeneous.flickering.R'
     'QhatModel.homo.normal.linear.fire.R'
     'QhatModel.homo.normal.linear.Kuczera.impact.R'
+    'QhatModel.homo.normal.linear.AR1.fire.R'
