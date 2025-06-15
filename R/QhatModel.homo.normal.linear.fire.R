@@ -9,7 +9,7 @@ QhatModel.homo.normal.linear.fire <- setClass(  #class
   contains=c('QhatModel.homo.normal.linear'),#Parent file
 
 
-  # Set the default values for the slots. (optional)
+  # Set the default values for the slots. (optional)]
   prototype=list(
     input.data = data.frame(year=c(0),month=c(0),precipitation=c(0), fire =c(0)),
     nStates = Inf,
@@ -88,24 +88,60 @@ setMethod(f="getMean",signature=c("QhatModel.homo.normal.linear.fire","data.fram
 
             # Calculate the non-AR1 componants
             a0.est <- 100 * a0.est
-            Qhat.model <- precip.data * a1.est + a0.est + time.vals * trend.est
+
+              Qhat.model <- precip.data * a1.est + a0.est + time.vals * trend.est
+              Qhat.fire <- getKuczera(.Object)
+              Qhat.model =Qhat.model - Qhat.fire
+
+
+            #saving qhat values to a csv
+            #write.table(Qhat.model, file = "intermediate_values.csv", sep = ",", col.names = !file.exists("intermediate_values.csv"), row.names = FALSE)
+            #print(Qhat.model)
+            #print(Qhat.fire)
+            return(Qhat.model)
+
+          }
+ )
+# Creating separate function for Kuczera component
+setGeneric(name="getKuczera",def=function(.Object) {standardGeneric("getKuczera")})
+setMethod(f="getKuczera",signature=c("QhatModel.homo.normal.linear.fire"),definition=function(.Object)
+{
+
+            # Get object parameter list
+            parameters = getParameters(.Object@parameters)
 
             #Calculate Kuczera curve fire impact
             fire.year = which(.Object@input.data$fire==1)
+            #print(fire.year)
+            nrows = nrow(.Object@input.data);
             fire.Qhat <- matrix(0, nrows, length(fire.year))
             ind =0
             #The Kuczera parameters
-            tlag=parameters$Kuczera.tlag
-            Lmax =parameters$Kuczera.Lmax
-            K =parameters$Kuczera.K
+            tlag = parameters$Kuczera.tlag
+            #print(tlag)
+            Lmax = parameters$Kuczera.Lmax
+            K = parameters$Kuczera.K
             for (i in fire.year){
               # getting the no. of years by deducing the lag years
-              lagged_year = i +tlag
-              years.postfire =  pmax(0,data$year -data$year[lagged_year])
+              # Message here in the console
+              #print(paste("Processing iteration", i))
+              #print(paste("Year of fire is  ", fire.year))
+              lagged_year = .Object@input.data$year[i] +tlag
+
+              #Adding a new parameter for considering percentage area
+              #BA = .Object@input.data$area_burnt[i]
+
+              #print(paste("Year when reduction starts  ", lagged_year))
+              years.postfire =  pmax(0,.Object@input.data$year -lagged_year)
+              #print yeaes.postfire
+              #print(paste("No.of years after fire reduction started  ", years.postfire))
               ind=ind+1
               fire.Qhat[,ind] =Lmax*K*years.postfire*exp(1-K*years.postfire)
               }
-            Qhat.model =Qhat.model-colSums(fire.Qhat)
-            return(Qhat.model)
+            Qhat.fire =rowSums(fire.Qhat)
+            #print(paste("Reduction in flow due to fire", Qhat.fire))
+            #print(Qhat.fire)
+            return(Qhat.fire)
+            #plot(.Object@input.data$year,Qhat.fire)
           }
  )

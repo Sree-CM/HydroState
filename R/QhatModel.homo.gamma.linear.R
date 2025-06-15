@@ -28,6 +28,7 @@ setValidity("QhatModel.homo.gamma.linear", validObject)
 #setGeneric(name="initialize",def=function(.Object,input.data){standardGeneric("initialize")})
 setMethod("initialize","QhatModel.homo.gamma.linear", function(.Object, input.data, transition.graph=matrix(T,2,2),state.dependent.mean.a0=T,
                                                                       state.dependent.mean.a1=F, state.dependent.mean.trend=NA,state.dependent.std.a0=T) {
+  .Object@input.data <- input.data
   .Object@use.truncated.dist <- F
   .Object@nStates = ncol(transition.graph)
 
@@ -209,7 +210,7 @@ setMethod(f="generate.sample.Qhat",signature="QhatModel.homo.gamma.linear",defin
       sample.Qhat[[i]][j,] = rgamma(nSamples, shape=markov.shape[j,i], scale=markov.scale[j,i])
     }
   }
-
+  print(markov.mean)
   return(sample.Qhat)
 }
 )

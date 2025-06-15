@@ -135,5 +135,6 @@ setMethod(f="getMean.AR1",signature=c("QhatModel.homo.normal.linear.AR1","data.f
             # message(paste('...DBG getMean.AR1 nrows Qhat.model.NAs:',nrow(Qhat.model.NAs)))
 
             return(Qhat.model.NAs)
+            print(Qhat.model)
           }
 )

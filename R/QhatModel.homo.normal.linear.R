@@ -222,7 +222,7 @@ setMethod(f="getMean",signature=c("QhatModel.homo.normal.linear","data.frame"),d
             # Calculate the non-AR1 componants
             a0.est <- 100 * a0.est
             Qhat.model <- precip.data * a1.est + a0.est + time.vals * trend.est
-
+            #print(Qhat.model)
             # print(paste('...DBG getMean.AR0 nrows Qhat.model.NAs:',nrow(Qhat.model)))
 
             return(Qhat.model)

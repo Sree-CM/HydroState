@@ -156,6 +156,12 @@ setMethod(f="setBounds",
               } else if (parameter.names[i]=='Kuczera.tlag') {
                 .Object@lower.bound[[parameter.names[i]]] <- 0;
                 .Object@upper.bound[[parameter.names[i]]] <- 10;
+              } else if (parameter.names[i]=='mean.wap.a1') {
+                .Object@lower.bound[[parameter.names[i]]] <- 0;
+                .Object@upper.bound[[parameter.names[i]]] <- 10;
+              } else if (parameter.names[i]=='mean.wap.a2') {
+                .Object@lower.bound[[parameter.names[i]]] <- 0;
+                .Object@upper.bound[[parameter.names[i]]] <- 10;
 
               } else {
                 stop(paste('Default bounds are not defined for the parameter:',parameter.names[i]))
@@ -221,6 +227,11 @@ setMethod(f="setTransforms",
                 .Object@use.log.transform[[parameter.names[i]]] <- F
               } else if (parameter.names[i]=='Kuczera.tlag') {
                   .Object@use.log.transform[[parameter.names[i]]] <- F
+              } else if (parameter.names[i]=='mean.wap.a1') {
+                .Object@use.log.transform[[parameter.names[i]]] <- F
+              } else if (parameter.names[i]=='mean.wap.a2') {
+                .Object@use.log.transform[[parameter.names[i]]] <- F
+
               } else {
                 stop(paste('Default bounds are not defined for the parameter:',parameter.names[i]))
               }

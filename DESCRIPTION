@@ -4,7 +4,7 @@ Version: 0.1.0.2
 Authors@R: c(
     person("Tim", "Peterson", email = "tim.peterson@monash.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1885-0826"))) 
 Maintainer: Tim Peterson <tim.peterson@monash.edu>
-Depends: R (>= 3.4.2)
+Depends: R (>= 3.5.0)
 Description: HydroState idenifies regime changes in streamflow runoff nor explained by varioations in precipitation. The package allows a flexible set of Hidden Markov Models of annual, seasonal or monthly streamflow runoff to be built that includes precipitation as a predictor of runoff. Suites of models can be build for a single site, ranging from from one to three states can be build and each with differing combinations of error models and auto-correlation terms, allowing the most parsimineous model (by AIC) to easily be idenified. The entire package is written in R S4 object oriented code. See Peterson TJ, Saft M, Peel MC & John A (2021), Watersheds may not recover from drought, Science, DOI: 10.1126/science.abd5085
 Imports: DEoptim, sn, truncnorm, diagram
 BugReports: https://github.com/peterson-tim-j/HydroState/issues
@@ -12,36 +12,37 @@ URL: https://github.com/peterson-tim-j/HydroState
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.3.2
 ByteCompile: true
-Collate: 
-    'abstracts.R'
-    'parameters.R'
-    'Qhat.boxcox.R'
-    'Qhat.burbidge.R'
-    'Qhat.log.R'
-    'Qhat.none.R'
-    'QhatModel.homo.normal.linear.R'
-    'QhatModel.homo.normal.linear.AR1.R'
-    'QhatModel.homo.gamma.linear.R'
-    'QhatModel.homo.gamma.linear.AR1.R'
-    'QhatModel.homo.normal.linear.AR2.R'
-    'QhatModel.homo.gamma.linear.AR2.R'
-    'QhatModel.homo.normal.linear.AR3.R'
-    'QhatModel.homo.gamma.linear.AR3.R'
-    'QhatModel.homo.skewedNormal.linear.R'
-    'QhatModel.homo.skewedNormal.linear.AR1.R'
-    'QhatModel.homo.skewedNormal.linear.AR2.R'
-    'QhatModel.homo.skewedNormal.linear.AR3.R'
-    'QhatModel.subAnnual.homo.gamma.linear.R'
-    'QhatModel.subAnnual.homo.gamma.linear.AR1.R'
-    'QhatModel.subAnnual.homo.gamma.linear.AR2.R'
-    'QhatModel.subAnnual.homo.gamma.linear.AR3.R'
-    'markov.annualHomogeneous.R'
-    'hydroState.R'
-    'hydroState.allModels.R'
-    'hydroState.subAnnual.allModels.R'
-    'markov.annualHomogeneous.flickering.R'
-    'QhatModel.homo.normal.linear.fire.R'
-    'QhatModel.homo.normal.linear.Kuczera.impact.R'
-    'QhatModel.homo.normal.linear.AR1.fire.R'
+Collate: 'abstracts.R' 'parameters.R' 'Qhat.boxcox.R' 'Qhat.burbidge.R'
+        'Qhat.log.R' 'Qhat.none.R' 'QhatModel.homo.normal.linear.R'
+        'QhatModel.homo.normal.linear.AR1.R'
+        'QhatModel.homo.gamma.linear.R'
+        'QhatModel.homo.gamma.linear.AR1.R'
+        'QhatModel.homo.normal.linear.fire.R'
+        'QhatModel.homo.normal.linear.AR1.fire.R'
+        'QhatModel.homo.gamma.linear.AR1.fire.R'
+        'QhatModel.homo.normal.linear.AR2.R'
+        'QhatModel.homo.gamma.linear.AR2.R'
+        'QhatModel.homo.normal.linear.AR2.fire.R'
+        'QhatModel.homo.gamma.linear.AR2.fire.R'
+        'QhatModel.homo.normal.linear.AR3.R'
+        'QhatModel.homo.gamma.linear.AR3.R'
+        'QhatModel.homo.normal.linear.AR3.fire.R'
+        'QhatModel.homo.gamma.linear.AR3.fire.R'
+        'QhatModel.homo.gamma.linear.fire.R'
+        'QhatModel.homo.skewedNormal.linear.R'
+        'QhatModel.homo.skewedNormal.linear.AR1.R'
+        'QhatModel.homo.skewedNormal.linear.AR2.R'
+        'QhatModel.homo.skewedNormal.linear.AR3.R'
+        'QhatModel.subAnnual.homo.gamma.linear.R'
+        'QhatModel.subAnnual.homo.gamma.linear.AR1.R'
+        'QhatModel.subAnnual.homo.gamma.linear.AR2.R'
+        'QhatModel.subAnnual.homo.gamma.linear.AR3.R'
+        'markov.annualHomogeneous.R' 'hydroState.R'
+        'hydroState.allModels.R' 'hydroState.fire.allModels.R'
+        'hydroState.subAnnual.allModels.R'
+        'markov.annualHomogeneous.flickering.R'
+NeedsCompilation: no
+Packaged: 2024-09-05 07:53:31 UTC; shonn
+Author: Tim Peterson [aut, cre] (<https://orcid.org/0000-0002-1885-0826>)

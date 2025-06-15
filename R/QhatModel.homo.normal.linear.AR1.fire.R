@@ -1,4 +1,4 @@
-##' @include abstracts.R QhatModel.homo.normal.linear.AR1.R QhatModel.homo.normal.linear.Kuczera.impact.R
+##' @include abstracts.R QhatModel.homo.normal.linear.AR1.R QhatModel.homo.normal.linear.fire.R
 ##' @export
 QhatModel.homo.normal.linear.AR1.fire <- setClass(
   # Set the name for the class
@@ -6,7 +6,7 @@ QhatModel.homo.normal.linear.AR1.fire <- setClass(
 
   package='hydroState',
 
-  contains=c('QhatModel.homo.normal.linear.AR1','QhatModel.homo.normal.linear.Kuczera.impact'),
+  contains=c('QhatModel.homo.normal.linear.AR1','QhatModel.homo.normal.linear.fire'),
 
   # Set the default values for the slots. (optional)
   prototype=list(
@@ -36,7 +36,7 @@ setMethod("initialize","QhatModel.homo.normal.linear.AR1.fire", function(.Object
     .Object@parameters = new('parameters', c('mean.a0', 'mean.a1', 'mean.AR1', 'std.a0','Kuczera.Lmax','Kuczera.K','Kuczera.tlag'), parameter.length)
   } else {
     parameter.length <- as.numeric(c(state.dependent.mean.a0, state.dependent.mean.a1, state.dependent.mean.trend, state.dependent.mean.AR1,
-                                     state.dependent.std.a0)) * (.Object@nStates-1) + 1
+                                     state.dependent.std.a0,0,0,0)) * (.Object@nStates-1) + 1
     .Object@parameters = new('parameters', c('mean.a0', 'mean.a1', 'mean.trend','mean.AR1', 'std.a0','Kuczera.Lmax','Kuczera.K','Kuczera.tlag'), parameter.length)
   }
 
@@ -45,7 +45,7 @@ setMethod("initialize","QhatModel.homo.normal.linear.AR1.fire", function(.Object
 }
 )
 
-setGeneric(name="is.stationary",def=function(.Object) {standardGeneric("is.stationary")})
+#setGeneric(name="is.stationary",def=function(.Object) {standardGeneric("is.stationary")})
 setMethod(f="is.stationary",signature=c("QhatModel.homo.normal.linear.AR1.fire"),definition=function(.Object)
 {
   # Get object parameter list
@@ -62,7 +62,7 @@ setMethod(f="is.stationary",signature=c("QhatModel.homo.normal.linear.AR1.fire")
 
 # Calculate the transformed flow at the mean annual precip
 setMethod(f="getMean",signature=c("QhatModel.homo.normal.linear.AR1.fire","data.frame"),definition=function(.Object, data) {
-          #return(getMean.AR1(.Object, data))
+
           fire.impact = getKuczera(.Object)
           return(getMean.AR1(.Object, data)-fire.impact)
   }
