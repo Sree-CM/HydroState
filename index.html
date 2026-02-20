@@ -11,8 +11,8 @@
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Hidden Markov Modelling of Hydrological State Change">
-<meta name="description" content="Identifies regime changes in streamflow runoff not explained by variations in precipitation. The package builds a flexible set of Hidden Markov Models of annual, seasonal or monthly streamflow runoff with precipitation as a predictor. Suites of models can be built for a single site, ranging from one to three states and each with differing combinations of error models and auto-correlation terms. The most parsimonious model is easily identified by AIC. Useful for understanding catchment drought non-recovery Peterson TJ, Saft M, Peel MC &amp; John A (2021) &lt;doi:10.1126/science.abd5085&gt;.">
-<meta property="og:description" content="Identifies regime changes in streamflow runoff not explained by variations in precipitation. The package builds a flexible set of Hidden Markov Models of annual, seasonal or monthly streamflow runoff with precipitation as a predictor. Suites of models can be built for a single site, ranging from one to three states and each with differing combinations of error models and auto-correlation terms. The most parsimonious model is easily identified by AIC. Useful for understanding catchment drought non-recovery Peterson TJ, Saft M, Peel MC &amp; John A (2021) &lt;doi:10.1126/science.abd5085&gt;.">
+<meta name="description" content="Identifies regime changes in streamflow runoff not explained by variations in precipitation. The package builds a flexible set of Hidden Markov Models of annual, seasonal or monthly streamflow runoff with precipitation as a predictor. Suites of models can be built for a single site, ranging from one to three states and each with differing combinations of error models and auto-correlation terms. The most parsimonious model is easily identified by AIC, and useful for understanding catchment drought non-recovery: Peterson TJ, Saft M, Peel MC &amp; John A (2021) &lt;doi:10.1126/science.abd5085&gt;.">
+<meta property="og:description" content="Identifies regime changes in streamflow runoff not explained by variations in precipitation. The package builds a flexible set of Hidden Markov Models of annual, seasonal or monthly streamflow runoff with precipitation as a predictor. Suites of models can be built for a single site, ranging from one to three states and each with differing combinations of error models and auto-correlation terms. The most parsimonious model is easily identified by AIC, and useful for understanding catchment drought non-recovery: Peterson TJ, Saft M, Peel MC &amp; John A (2021) &lt;doi:10.1126/science.abd5085&gt;.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">hydroState</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="hydrostate">hydroState<a class="anchor" aria-label="anchor" href="#hydrostate"></a>
 </h1></div>
-<p><img src="https://img.shields.io/cran/v/hydroState?style=flat"><img src="https://img.shields.io/github/downloads/peterson-tim-j/HydroState/total?style=flat-square"><img src="https://img.shields.io/github/stars/peterson-tim-j/HydroState?style=social&amp;labelColor=yellow&amp;color=yellow"></p>
+<p><a href="https://cran.r-project.org/package=hydroState" class="external-link"><img src="https://img.shields.io/cran/v/hydroState?logo=R&amp;logoColor=blue&amp;label=CRAN%20version" alt="CRAN/METACRAN Version"></a> <a href="https://cran.r-project.org/package=hydroState" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/hydroState"></a> <a href="https://cran.r-project.org/package=hydroState" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/last-month/hydroState"></a> <a href="https://doi.org/10.1126/science.abd5085" class="external-link"><img src="https://img.shields.io/badge/Science_Magazine-red?logo=Clarivate&amp;label=Top%201%25%20Most%20Cited%20in&amp;link=https%3A%2F%2Fdoi.org%2F10.1126%2Fscience.abd5085" alt="Static Badge"></a> <img src="https://img.shields.io/github/stars/peterson-tim-j/HydroState?style=social&amp;labelColor=yellow&amp;color=yellow"><a href="https://github.com/peterson-tim-j/HydroState/network" class="external-link"><img src="https://img.shields.io/github/forks/peterson-tim-j/HydroState" alt="GitHub forks"></a></p>
 <div class="section level3">
 <h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h3>
@@ -79,11 +79,11 @@
 <div class="section level3">
 <h3 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h3>
-<p>Be sure to see the <a href="articles/hydroState.html">Getting Started</a> article for an example of this workflow. The package contains a default hydroState model object that explains streamflow as a function of precipitation using a linear model. Once the model object is built (<a href="reference/build.html">build()</a>), the model is fitted (<a href="reference/fit.hydroState.html">fit.hydroState()</a>) to determine the most likely rainfall-runoff state at each time-step. To assess the adequacy of the fit, the residuals are plotted (<a href="reference/plot.hydroState.html">plot()</a>), and an adequate fit requires the residuals to be normally distributed, uniform, with minimal correlation and minimal trends. The resulting runoff states from the fitted model can then be evaluated over time (<a href="reference/plot.hydroState.html">plot()</a>) and even exported (<a href="reference/get.states.html">get.states()</a>) with the state values, confidence intervals, and conditional probabilities at each time-step. Input data requires a dataframe with catchment average runoff and precipitation at annual, seasonal, or monthly timesteps, and gaps with missing data are permitted.</p>
+<p>Be sure to see the <a href="https://peterson-tim-j.github.io/HydroState/articles/hydroState.html">Getting Started</a> article for an example of this workflow. The package contains a default hydroState model object that explains streamflow as a function of precipitation using a linear model. Once the model object is built (<a href="https://peterson-tim-j.github.io/HydroState/reference/build.html">build()</a>), the model is fitted (<a href="https://peterson-tim-j.github.io/HydroState/reference/fit.hydroState.html">fit.hydroState()</a>) to determine the most likely rainfall-runoff state at each time-step. To assess the adequacy of the fit, the residuals are plotted (<a href="https://peterson-tim-j.github.io/HydroState/reference/plot.hydroState.html">plot()</a>), and an adequate fit requires the residuals to be normally distributed, uniform, with minimal correlation and minimal trends. The resulting runoff states from the fitted model can then be evaluated over time (<a href="https://peterson-tim-j.github.io/HydroState/reference/plot.hydroState.html">plot()</a>) and even exported (<a href="https://peterson-tim-j.github.io/HydroState/reference/get.states.html">get.states()</a>) with the state values, confidence intervals, and conditional probabilities at each time-step. Input data requires a dataframe with catchment average runoff and precipitation at annual, seasonal, or monthly timesteps, and gaps with missing data are permitted.</p>
 <div class="section level4">
 <h4 id="adjusting-the-default-model">Adjusting the default model<a class="anchor" aria-label="anchor" href="#adjusting-the-default-model"></a>
 </h4>
-<p>To better explain the rainfall-runoff relationship, the default model can be adjusted by selecting various items within the <a href="reference/build.html">build()</a> function. These include:</p>
+<p>To better explain the rainfall-runoff relationship, the default model can be adjusted by selecting various items within the <a href="https://peterson-tim-j.github.io/HydroState/reference/build.html">build()</a> function. These include:</p>
 <ul>
 <li>
 <code>data.transform</code>: transform streamflow observations in order to reduce skew: <code>boxcox</code>, <code>log</code>, <code>burbidge</code>, or <code>none</code>
@@ -101,12 +101,12 @@
 <li>
 <code>transition.graph</code>: set the number of possible states in the model (1, 2, or 3).</li>
 </ul>
-<p>An example of how to adjust the default model is demonstrated within the <a href="articles/adjust.state.model.html">Adjust the default state model</a> article and <a href="articles/subAnnual.models.html">Seasonal and monthly models</a> article.</p>
+<p>An example of how to adjust the default model is demonstrated within the <a href="https://peterson-tim-j.github.io/HydroState/articles/adjust.state.model.html">Adjust the default state model</a> article and <a href="https://peterson-tim-j.github.io/HydroState/articles/subAnnual.models.html">Seasonal and monthly models</a> article.</p>
 </div>
 <div class="section level4">
 <h4 id="finding-the-best-model">Finding the best model<a class="anchor" aria-label="anchor" href="#finding-the-best-model"></a>
 </h4>
-<p>There is an additional option to construct all possible types of models using the <a href="reference/build.all.html">build.all()</a> function, and compare them using the same <a href="reference/fit.hydroState.html">fit.hydroState()</a> function. The most likely model can be selected based on the AIC where the best model will have the lowest AIC. An example of this is demonstrated at the end of the <a href="articles/adjust.state.model.html">Adjust the default state model</a> article and <a href="articles/subAnnual.models.html">Seasonal and monthly models</a> article. To get stated, it is recommended to evaluate the default model at first with one state and again with two states as shown in the <a href="articles/hydroState.html">Getting Started</a> article.</p>
+<p>There is an additional option to construct all possible types of models using the <a href="https://peterson-tim-j.github.io/HydroState/reference/build.all.html">build.all()</a> function, and compare them using the same <a href="https://peterson-tim-j.github.io/HydroState/reference/fit.hydroState.html">fit.hydroState()</a> function. The most likely model can be selected based on the AIC where the best model will have the lowest AIC. An example of this is demonstrated at the end of the <a href="https://peterson-tim-j.github.io/HydroState/articles/adjust.state.model.html">Adjust the default state model</a> article and <a href="https://peterson-tim-j.github.io/HydroState/articles/subAnnual.models.html">Seasonal and monthly models</a> article. To get stated, it is recommended to evaluate the default model at first with one state and again with two states as shown in the <a href="https://peterson-tim-j.github.io/HydroState/articles/hydroState.html">Getting Started</a> article.</p>
 </div>
 </div>
 <div class="section level3">
@@ -115,7 +115,7 @@
 <p>Peterson TJ, Saft M, Peel MC &amp; John A (2021), Watersheds may not recover from drought, Science, DOI: 10.1126/science.abd5085.</p>
 </div>
 <div class="section level3">
-<h3 id="acknoledgement">Acknoledgement<a class="anchor" aria-label="anchor" href="#acknoledgement"></a>
+<h3 id="acknowledgments">Acknowledgments:<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
 </h3>
 <p>The package development was funded by the Victorian Government The Department of Energy, Environment, and Climate Action (<a href="https://www.water.vic.gov.au/" class="external-link uri">https://www.water.vic.gov.au/</a>).</p>
 </div>
@@ -123,6 +123,7 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=hydroState" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/peterson-tim-j/HydroState/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/peterson-tim-j/HydroState/issues" class="external-link">Report a bug</a></li>
 </ul>
@@ -162,7 +163,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

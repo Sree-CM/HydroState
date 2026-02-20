@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">hydroState</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -206,9 +206,9 @@ that assumes a gamma distribution of the residuals,
 greater then 0.05 suggesting residuals are normally distributed.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># review residual plots</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">default.model.annual</span>, pse.residuals <span class="op">=</span> <span class="cn">TRUE</span>, siteID <span class="op">=</span> <span class="st">'407211'</span>, do.pdf <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">default.model.annual</span>, pse.residuals <span class="op">=</span> <span class="cn">TRUE</span>, siteID <span class="op">=</span> <span class="st">'407211'</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">adjusted.model.annual</span>, pse.residuals <span class="op">=</span> <span class="cn">TRUE</span>, siteID <span class="op">=</span> <span class="st">'407211'</span>, do.pdf <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">adjusted.model.annual</span>, pse.residuals <span class="op">=</span> <span class="cn">TRUE</span>, siteID <span class="op">=</span> <span class="st">'407211'</span><span class="op">)</span></span></code></pre></div>
 <div class="float">
 <img src="../reference/figures/default.vs.gamma.annual.two.state.residuals.407211.png" style="width:100.0%" alt="Comparison between the residual plots of the default annual model with a truncated normal distribution and adjusted annual model with a gamma distribution and two auto-correlation lags. p-value greater than 0.05 in adjusted model suggests gamma model better suites the residual distribution at this site (407211)"><div class="figcaption">Comparison between the residual plots of the
 default annual model with a truncated normal distribution and adjusted
@@ -313,7 +313,7 @@ take several hours to run.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
