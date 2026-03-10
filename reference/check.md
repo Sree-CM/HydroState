@@ -47,8 +47,6 @@ equaling the 'known' state is calculated.
 ## Check reliability of state predictions (>5s to run)
 # \donttest{
 check(model = model.annual.fitted.221201)
-#>                    Inferred State Low Inferred State Normal
-#> Known State Low             0.5325531             0.4674469
-#> Known State Normal          0.1787494             0.8212506
+#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 100016
 # }
 ```

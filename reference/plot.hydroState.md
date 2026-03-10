@@ -146,19 +146,17 @@ data(model.annual.fitted.221201)
 model.annual.fitted.221201 =
                   setInitialYear(model = model.annual.fitted.221201,
                   initial.year = 1990)
+#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 94
 
 ## Plot only residuals
 plot(model.annual.fitted.221201, pse.residuals = TRUE)
-
-#> NULL
+#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 94
 
 ## Plot all markov state figures (default)
 plot(model.annual.fitted.221201)
-
-#> NULL
+#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 94
 
 ## Plot only dependent variable transformed with markov states
 plot(model.annual.fitted.221201, dep.variable.transformed = TRUE)
-
-#> NULL
+#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 94
 ```

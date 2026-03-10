@@ -56,8 +56,10 @@ data(model.annual.fitted.221201)
 model.annual.fitted.221201 =
                 setInitialYear(model = model.annual.fitted.221201,
                                initial.year = 1990)
+#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 94
 
 ## Get states
 model.annual.fitted.221201.states =
                 get.states(model = model.annual.fitted.221201)
+#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 94
 ```
