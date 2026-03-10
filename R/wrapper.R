@@ -110,11 +110,11 @@ get.seasons <- function(input.data=data.frame(year=c(), month = c(), flow=c(), p
 }
 
 #' @keywords internal
-select.transform <- function(func = 'boxcox', input.data=data.frame(year=c(), flow=c(), precip=c())){
+select.transform <- function(func = 'logsinh', input.data=data.frame(year=c(), flow=c(), precip=c())){
 
   #Validate
   func = paste('Qhat.',func,sep='')
-  if(func %in% c('Qhat.none','Qhat.log','Qhat.burbidge','Qhat.boxcox')){
+  if(func %in% c('Qhat.none','Qhat.log','Qhat.burbidge','Qhat.boxcox','Qhat.logsinh')){
 
     # # If monthly data, sort in ascending order by year and month
     # if('month' %in% colnames(input.data)){

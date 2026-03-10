@@ -59,8 +59,8 @@ setMethod(f="getDistributionPercentiles",
               stop('Input "data" must be a a data frame with a variable named "Qhat".')
 
             # Get distribution mean, dispersion and familty parameters.
-            markov.mean = getMean(.Object, data)
-            markov.variance = getVariance(.Object, data)
+            markov.mean = getMean(.Object, data, Qhat.object)
+            markov.variance = getVariance(.Object, data, markov.mean)
 
             # Limit mean to >0
             filt = is.finite(markov.mean) & markov.mean <= sqrt(.Machine$double.eps)*1000
@@ -97,7 +97,7 @@ setMethod(f="getDistributionPercentiles",
 # @exportMethod getEmissionDensity
 setMethod(f="getEmissionDensity",
           signature=c("QhatModel.homo.gamma.linear","data.frame"),
-          definition=function(.Object, data, cumProb.threshold.Qhat)
+          definition=function(.Object, data, cumProb.threshold.Qhat, Qhat.object)
           {
 
             # Check Qhat is in data
@@ -108,8 +108,8 @@ setMethod(f="getEmissionDensity",
               stop('Input "data" must be a a data frame with a variable named "Qhat.precipitation".')
 
             # Get the Burr mean, dispersion and familty parameters.
-            markov.mean = getMean(.Object, data)
-            markov.variance = getVariance(.Object, data)
+            markov.mean = getMean(.Object, data, Qhat.object)
+            markov.variance = getVariance(.Object, data, markov.mean)
 
             # If mean equal INF return, P = 0
 
@@ -173,7 +173,7 @@ setMethod(f="generate.sample.Qhat.fromViterbi",signature=c("QhatModel.homo.gamma
 
   # Get the Burr mean, dispersion and familty parameters.
   markov.mean = getMean(.Object, data)
-  markov.variance = getVariance(.Object, data)
+  markov.variance = getVariance(.Object, data, markov.mean)
 
   # Limit mean to >0
   filt = is.finite(markov.mean) & markov.mean <= sqrt(.Machine$double.eps)*1000
@@ -202,7 +202,7 @@ setMethod(f="generate.sample.Qhat",signature="QhatModel.homo.gamma.linear",defin
 
   # Get the Burr mean, dispersion and familty parameters.
   markov.mean = getMean(.Object, data)
-  markov.variance = getVariance(.Object, data)
+  markov.variance = getVariance(.Object, data, markov.mean)
 
   # Limit mean to >0
   filt = is.finite(markov.mean) & markov.mean <= sqrt(.Machine$double.eps)*1000

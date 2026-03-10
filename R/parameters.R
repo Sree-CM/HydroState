@@ -78,7 +78,10 @@ setMethod(f="setBounds",
             for (i in 1:length(parameter.names)) {
 
               if (parameter.names[i]=='lambda') {
-                .Object@lower.bound[[parameter.names[i]]] <- 1e-10;
+                .Object@lower.bound[[parameter.names[i]]] <- 0; #initially it was 1e-10
+                .Object@upper.bound[[parameter.names[i]]] <- 2;  #initially it was 1
+              } else if (parameter.names[i]=='lambda.2') {
+                .Object@lower.bound[[parameter.names[i]]] <- 0;
                 .Object@upper.bound[[parameter.names[i]]] <- 1;
               } else if (parameter.names[i]=='lambda.burbidge') {
                 .Object@lower.bound[[parameter.names[i]]] <- 1;
@@ -160,7 +163,28 @@ setMethod(f="setBounds",
               } else if (parameter.names[i]=='initial.state.prob') {
                 .Object@lower.bound[[parameter.names[i]]] <- 0;
                 .Object@upper.bound[[parameter.names[i]]] <- 1;
-              } else {
+              } else if (parameter.names[i]=='mean.alpha1') {
+                .Object@lower.bound[[parameter.names[i]]] <- 1;
+                .Object@upper.bound[[parameter.names[i]]] <- 10;
+              } else if (parameter.names[i]=='mean.alpha2') {
+                .Object@lower.bound[[parameter.names[i]]] <- 1;
+                .Object@upper.bound[[parameter.names[i]]] <- 10;
+              } else if (parameter.names[i]=='mean.beta') {
+                .Object@lower.bound[[parameter.names[i]]] <- 0;
+                .Object@upper.bound[[parameter.names[i]]] <- 1;
+              } else if (parameter.names[i]=='mean.Smax') {
+                .Object@lower.bound[[parameter.names[i]]] <- 5;
+                .Object@upper.bound[[parameter.names[i]]] <- 1000;
+              }  else if (parameter.names[i]=='mean.tc') {
+                .Object@lower.bound[[parameter.names[i]]] <- 0.00027;
+                .Object@upper.bound[[parameter.names[i]]] <- 1;
+              } else if (parameter.names[i]=='logsinh.a') {
+                .Object@lower.bound[[parameter.names[i]]] <- 0.01  #3.05902e-07
+                .Object@upper.bound[[parameter.names[i]]] <- 1.5  #10;
+              } else if (parameter.names[i]=='logsinh.b') {
+                .Object@lower.bound[[parameter.names[i]]] <- 0.01 #3.05902e-07
+                .Object@upper.bound[[parameter.names[i]]] <-  1.5 #10;
+              } else{
                 stop(paste('Default bounds are not defined for the parameter:',parameter.names[i]))
               }
 
@@ -169,6 +193,7 @@ setMethod(f="setBounds",
             return(.Object)
           }
 )
+# Note : these transformation is done when doing calibration. the values seeing in calibrated model as parameter values are in original form. You don't need to do anything on that.
 
 setGeneric(name="setTransforms",def=function(.Object) {standardGeneric("setTransforms")})
 setMethod(f="setTransforms",
@@ -185,7 +210,9 @@ setMethod(f="setTransforms",
 
             for (i in 1:length(parameter.names)) {
               if (parameter.names[i]=='lambda') {
-                .Object@use.log.transform[[parameter.names[i]]] <- T
+                .Object@use.log.transform[[parameter.names[i]]] <- F #Initially it was true
+              } else if (parameter.names[i]=='lambda.2') {
+                .Object@use.log.transform[[parameter.names[i]]] <- F
               } else if (parameter.names[i]=='lambda.burbidge') {
                   .Object@use.log.transform[[parameter.names[i]]] <- T
               } else if (parameter.names[i]=='mean.a0' || parameter.names[i]=='mean.summer.a0' || parameter.names[i]=='mean.autumn.a0' ||
@@ -221,7 +248,21 @@ setMethod(f="setTransforms",
                 .Object@use.log.transform[[parameter.names[i]]] <- F;
               } else if (parameter.names[i]=='initial.state.prob') {
                 .Object@use.log.transform[[parameter.names[i]]] <- F;
-              } else {
+              } else if (parameter.names[i]=='mean.alpha1') {
+                .Object@use.log.transform[[parameter.names[i]]] <- F;
+              } else if (parameter.names[i]=='mean.alpha2') {
+                .Object@use.log.transform[[parameter.names[i]]] <- F;
+              } else if (parameter.names[i]=='mean.beta') {
+                .Object@use.log.transform[[parameter.names[i]]] <- F;
+              } else if (parameter.names[i]=='mean.Smax') {
+                .Object@use.log.transform[[parameter.names[i]]] <- T;
+              } else if (parameter.names[i]=='mean.tc') {
+                .Object@use.log.transform[[parameter.names[i]]] <- T;
+              }else if (parameter.names[i]=='logsinh.a') {
+                .Object@use.log.transform[[parameter.names[i]]] <- T;
+              } else if (parameter.names[i]=='logsinh.b') {
+                .Object@use.log.transform[[parameter.names[i]]] <- T;
+              }else {
                 stop(paste('Default bounds are not defined for the parameter:',parameter.names[i]))
               }
 
