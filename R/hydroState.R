@@ -371,8 +371,6 @@ setMethod(f="getNegLogLikelihood",signature=c(.Object="hydroState",parameters='m
                 # nll <- sum(unlist(nll))
               # }else{
                 #fhandle <- getMethod("getQhat", "Qhat")
-    
-                }
 
             nll <- getLogLikelihood(.Object@markov.model.object, data, emission.probs)
 
