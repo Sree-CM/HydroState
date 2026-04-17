@@ -143,9 +143,7 @@ setMethod("get.SeaonalityPeriod","QhatModel.homo.normal.linear", function(.Objec
 # @exportMethod getEmissionDensity
 setMethod(f="getEmissionDensity",
           signature=c("QhatModel.homo.normal.linear","data.frame", 'numeric'),
-          definition=function(.Object, data, zero.Flow, cumProb.threshold.Qhat)
-          signature=c("QhatModel.homo.normal.linear","data.frame"),
-          definition=function(.Object, data, cumProb.threshold.Qhat, Qhat.object)
+          definition=function(.Object, data, zero.Flow, cumProb.threshold.Qhat, Qhat.object)
           {
 
             # Check Qhat is in data
