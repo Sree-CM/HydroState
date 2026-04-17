@@ -19,6 +19,7 @@ built, the hydroState model is ready to be fitted with
 build(
   input.data = data.frame(year = c(), flow = c(), precip = c()),
   data.transform = "boxcox",
+  data.transform.constant = 1,
   parameters = c("a0", "a1", "std"),
   seasonal.parameters = NULL,
   state.shift.parameters = c("a0", "std"),
@@ -39,8 +40,13 @@ build(
 
 - data.transform:
 
-  character sting with the method of transformation. The default is
+  character string with the method of transformation. The default is
   'boxcox'. Other options: 'log', 'burbidge', 'none'
+
+- data.transform.constant:
+
+  scalar numeric to allow the transform to handle zero flow. Default is
+  1.
 
 - parameters:
 
@@ -218,6 +224,7 @@ model = build(input.data = streamflow_annual_221201)
 # 1-lag of auto-correlation, and state dependent parameters ('a1', 'std')
 model = build(input.data = streamflow_annual_221201,
                    data.transform = 'boxcox',
+                   data.transform.constant = 1,
                    parameters = c('a0','a1','std','AR1'),
                    state.shift.parameters = c('a1','std'),
                    error.distribution = 'normal',

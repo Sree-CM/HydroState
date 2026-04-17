@@ -36,9 +36,9 @@ data(model.annual.fitted.221201)
 
 ## AIC of a single model
 get.AIC(model.annual.fitted.221201)
-#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 94
+#> Error in getQhat(.Object@Qhat.object, .Object@input.data): no slot of name "constant" for this object of class "Qhat.boxcox"
 
 ## Lowest AIC of a model set
 get.AIC(all.models.annual.fitted.407211)
-#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 73
+#> Error in getQhat(.Object@Qhat.object, .Object@input.data): no slot of name "constant" for this object of class "Qhat.boxcox"
 ```

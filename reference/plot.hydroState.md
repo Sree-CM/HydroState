@@ -146,17 +146,17 @@ data(model.annual.fitted.221201)
 model.annual.fitted.221201 =
                   setInitialYear(model = model.annual.fitted.221201,
                   initial.year = 1990)
-#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 94
+#> Error in getQhat(.Object@Qhat.object, .Object@input.data): no slot of name "constant" for this object of class "Qhat.boxcox"
 
 ## Plot only residuals
 plot(model.annual.fitted.221201, pse.residuals = TRUE)
-#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 94
+#> Error in getQhat(.Object@Qhat.object, .Object@input.data): no slot of name "constant" for this object of class "Qhat.boxcox"
 
 ## Plot all markov state figures (default)
 plot(model.annual.fitted.221201)
-#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 94
+#> Error in getQhat(.Object@Qhat.object, .Object@input.data): no slot of name "constant" for this object of class "Qhat.boxcox"
 
 ## Plot only dependent variable transformed with markov states
 plot(model.annual.fitted.221201, dep.variable.transformed = TRUE)
-#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 94
+#> Error in getQhat(.Object@Qhat.object, .Object@input.data): no slot of name "constant" for this object of class "Qhat.boxcox"
 ```

@@ -51,6 +51,6 @@ data(model.annual.fitted.221201)
 model.annual.fitted.221201 =
                 setInitialYear(model = model.annual.fitted.221201,
                                initial.year = 1990)
-#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 94
+#> Error in getQhat(.Object@Qhat.object, .Object@input.data): no slot of name "constant" for this object of class "Qhat.boxcox"
 
 ```

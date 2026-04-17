@@ -47,6 +47,6 @@ equaling the 'known' state is calculated.
 ## Check reliability of state predictions (>5s to run)
 # \donttest{
 check(model = model.annual.fitted.221201)
-#> Error in `$<-.data.frame`(`*tmp*`, "Qhat.flow", value = numeric(0)): replacement has 0 rows, data has 100016
+#> Error in getQhat(.Object@Qhat.object, data): no slot of name "constant" for this object of class "Qhat.boxcox"
 # }
 ```

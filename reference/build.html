@@ -48,6 +48,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">build</span><span class="op">(</span></span>
 <span>  input.data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>, flow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>, precip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  data.transform <span class="op">=</span> <span class="st">"boxcox"</span>,</span>
+<span>  data.transform.constant <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a0"</span>, <span class="st">"a1"</span>, <span class="st">"std"</span><span class="op">)</span>,</span>
 <span>  seasonal.parameters <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  state.shift.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a0"</span>, <span class="st">"std"</span><span class="op">)</span>,</span>
@@ -66,7 +67,11 @@
 
 
 <dt id="arg-data-transform">data.transform<a class="anchor" aria-label="anchor" href="#arg-data-transform"></a></dt>
-<dd><p>character sting with the method of transformation. The default is 'boxcox'. Other options: 'log', 'burbidge', 'none'</p></dd>
+<dd><p>character string with the method of transformation. The default is 'boxcox'. Other options: 'log', 'burbidge', 'none'</p></dd>
+
+
+<dt id="arg-data-transform-constant">data.transform.constant<a class="anchor" aria-label="anchor" href="#arg-data-transform-constant"></a></dt>
+<dd><p>scalar numeric to allow the transform to handle zero flow. Default is 1.</p></dd>
 
 
 <dt id="arg-parameters">parameters<a class="anchor" aria-label="anchor" href="#arg-parameters"></a></dt>
@@ -139,6 +144,7 @@ $$</p>
 <span class="r-in"><span><span class="co"># 1-lag of auto-correlation, and state dependent parameters ('a1', 'std')</span></span></span>
 <span class="r-in"><span><span class="va">model</span> <span class="op">=</span> <span class="fu">build</span><span class="op">(</span>input.data <span class="op">=</span> <span class="va">streamflow_annual_221201</span>,</span></span>
 <span class="r-in"><span>                   data.transform <span class="op">=</span> <span class="st">'boxcox'</span>,</span></span>
+<span class="r-in"><span>                   data.transform.constant <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>                   parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'a0'</span>,<span class="st">'a1'</span>,<span class="st">'std'</span>,<span class="st">'AR1'</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                   state.shift.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'a1'</span>,<span class="st">'std'</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                   error.distribution <span class="op">=</span> <span class="st">'normal'</span>,</span></span>
