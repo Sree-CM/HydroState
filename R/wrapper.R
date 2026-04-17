@@ -110,7 +110,7 @@ select.transform <- function(func = 'boxcox', input.data=data.frame(year=c(), fl
 
   #Validate
   func = paste('Qhat.',func,sep='')
-  if(func %in% c('Qhat.none','Qhat.log','Qhat.burbidge','Qhat.boxcox')){
+  if(func %in% c('Qhat.none','Qhat.log','Qhat.burbidge','Qhat.boxcox','Qhat.logsinh')){
 
     return(new(func, input.data, constant = data.transform.constant))
 

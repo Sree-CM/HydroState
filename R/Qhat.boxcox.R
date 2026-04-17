@@ -55,8 +55,9 @@ setMethod(f="getQhat",signature=c("Qhat.boxcox",'data.frame'),definition=functio
               data$Qhat.flow <- log(data$flow + .Object@constant)
             }
             data$Qhat.precipitation <- data$precipitation
-
+            #browser()
             return(data)
+
           }
 )
 
@@ -79,8 +80,10 @@ setMethod(f="getQ.backTransformed",signature=c("Qhat.boxcox",'data.frame'),defin
   if (parameters$lambda>1e-8) {
     data$flow.modelled <- ( data$Qhat.flow * parameters$lambda + 1) ^ (1/parameters$lambda) - .Object@constant
   } else {
-    data$flow.modelled <- exp(data$Qhat.flow)-1
+    data$flow.modelled <- ((data$Qhat.flow * parameters$lambda + 1) ^ (1/parameters$lambda))-parameters$lambda.2
   }
+
+  #print(data)
   return(data)
 }
 )

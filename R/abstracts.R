@@ -48,16 +48,18 @@ QhatModel <- setClass("QhatModel", package='hydroState')
 # @exportMethod getEmissionDensity
 setGeneric(name="getEmissionDensity",def=function(.Object, data, zero.Flow, cumProb.threshold.Qhat=NA) {standardGeneric("getEmissionDensity")})
 setMethod(f="getEmissionDensity",signature="QhatModel",  definition=function(.Object, data, zero.Flow, cumProb.threshold.Qhat=NA){})
+setGeneric(name="getEmissionDensity",def=function(.Object, data, cumProb.threshold.Qhat=NA, Qhat.object=NA) {standardGeneric("getEmissionDensity")})
+setMethod(f="getEmissionDensity",signature="QhatModel",  definition=function(.Object, data, cumProb.threshold.Qhat=NA, Qhat.object=NA){})
 
 # @exportMethod getDistributionPercentiles
-setGeneric(name="getDistributionPercentiles",def=function(.Object, data, precentiles) {standardGeneric("getDistributionPercentiles")})
-setMethod(f="getDistributionPercentiles",signature="QhatModel",  definition=function(.Object, data, precentiles){})
+setGeneric(name="getDistributionPercentiles",def=function(.Object, data, precentiles, Qhat.object=NA) {standardGeneric("getDistributionPercentiles")})
+setMethod(f="getDistributionPercentiles",signature="QhatModel",  definition=function(.Object, data, precentiles, Qhat.object=NA){})
 
-setGeneric(name="generate.sample.Qhat.fromViterbi",def=function(.Object, data, viterbi.states) {standardGeneric("generate.sample.Qhat.fromViterbi")})
-setMethod(f="generate.sample.Qhat.fromViterbi",signature="QhatModel",  definition=function(.Object, data, viterbi.states){})
+setGeneric(name="generate.sample.Qhat.fromViterbi",def=function(.Object, data, viterbi.states, Qhat.object=NA) {standardGeneric("generate.sample.Qhat.fromViterbi")})
+setMethod(f="generate.sample.Qhat.fromViterbi",signature="QhatModel",  definition=function(.Object, data, viterbi.states, Qhat.object=NA){})
 
-setGeneric(name="generate.sample.Qhat",def=function(.Object, data, nSamples) {standardGeneric("generate.sample.Qhat")})
-setMethod(f="generate.sample.Qhat",signature="QhatModel",  definition=function(.Object, data, nSamples){})
+setGeneric(name="generate.sample.Qhat",def=function(.Object, data, nSamples, Qhat.object=NA) {standardGeneric("generate.sample.Qhat")})
+setMethod(f="generate.sample.Qhat",signature="QhatModel",  definition=function(.Object, data, nSamples, Qhat.object=NA){})
 
 setGeneric(name="getDensityIncrements",def=function(.Object, data, nIncrements) {standardGeneric("getDensityIncrements")})
 setMethod(f="getDensityIncrements",signature="QhatModel",definition=function(.Object, data, nIncrements){})

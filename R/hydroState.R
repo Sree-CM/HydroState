@@ -356,6 +356,26 @@ setMethod(f="getNegLogLikelihood",signature=c(.Object="hydroState",parameters='m
             if (all(is.na(emission.probs)) || max(emission.probs, na.rm=T)==0) {
               return(Inf)
             }
+            # Get the markov likelihood and return. Importantly, the object QhatBar is passed so that
+            # the markov object can get the model estimates of the transformed flow mean, standard deviation etc.
+            # if(NROW(delta)>1){
+
+              # Get the probabiity of the observed Qhat for each state at each time point.
+              # emission.probs = lapply(1:NROW(delta), function(i) getEmissionDensity(.Object@QhatModel.object, data[delta[i,1]:delta[i,2],], NA))
+
+                # if (all(is.na(unlist(emission.probs))) || max(unlist(emission.probs), na.rm=T)==0) {
+                #     return(Inf)
+                #   }
+
+                # nll <- lapply(1:NROW(delta), function(i) getLogLikelihood(.Object@markov.model.object, data[delta[i,1]:delta[i,2],], as.matrix(emission.probs[[i]],1:.Object@QhatModel.object@nStates)))
+                # nll <- sum(unlist(nll))
+              # }else{
+                #fhandle <- getMethod("getQhat", "Qhat")
+                emission.probs = getEmissionDensity(.Object@QhatModel.object, data, NA, .Object@Qhat.object)
+
+                if (all(is.na(emission.probs)) || max(emission.probs, na.rm=T)==0) {
+                  return(Inf)
+                }
 
             nll <- getLogLikelihood(.Object@markov.model.object, data, emission.probs)
 
@@ -582,7 +602,7 @@ setMethod(f="setStateNames",signature=c("hydroState","numeric"),definition=funct
   nStates = getNumStates(.Object@markov.model.object)
 
   # Get the MEDIAN QhatModel value of Qhat at normal precip and at the normal year
-  state.est <- getDistributionPercentiles(.Object@QhatModel.object, data, 0.5)
+  state.est <- getDistributionPercentiles(.Object@QhatModel.object, data, 0.5, .Object@Qhat.object)
   state.est <- state.est[[1]]
   state.est = state.est[year.filt,]
   if (is.monthly) {
@@ -805,6 +825,7 @@ setMethod(f="viterbi",signature=c("hydroState","data.frame","logical","numeric",
 
               # get emiision probs.
               emissionProbs = getEmissionDensity(.Object@QhatModel.object, data, zero.Flow, NA)
+              emissionProbs = getEmissionDensity(.Object@QhatModel.object, data, NA, .Object@Qhat.object)
 
               # Get initial states
               startProbs = getInitialStateProbabilities(.Object@markov.model.object)
@@ -879,7 +900,7 @@ setMethod(f="viterbi",signature=c("hydroState","data.frame","logical","numeric",
               plot.percentiles =  sort(plot.percentiles)
 
               # Get the precentiles each state at each time point and remove rows with no obs Qhat
-              state.est = getDistributionPercentiles(.Object@QhatModel.object, data, plot.percentiles)
+              state.est = getDistributionPercentiles(.Object@QhatModel.object, data, plot.percentiles, .Object@Qhat.object)
 
               # Remove NAs from the input data and Qhat
               # data <- data[filt,]
@@ -936,6 +957,7 @@ setMethod(f="viterbi",signature=c("hydroState","data.frame","logical","numeric",
               # Get the conditional probabilities.
               zero.Flow = get.zeroFlow(.Object@Qhat.object)
               emissionProbs = getEmissionDensity(.Object@QhatModel.object, data, zero.Flow, NA)
+              emissionProbs = getEmissionDensity(.Object@QhatModel.object, data, NA, .Object@Qhat.object)
               state.probs = getConditionalStateProbabilities(.Object@markov.model.object, data[filt,], emissionProbs[filt,])
 
               # Collate returned data.
@@ -1042,6 +1064,7 @@ setMethod(f="viterbi",signature=c("hydroState","data.frame","logical","numeric",
 
               # Calc axis limits.
               ylim.flow <- c(0, ceiling(max( c(max(data$flow,na.rm=T),max(flow.viterbi.est,na.rm=T)))))
+              #ylim.flow <- c(0, ceiling(max(data$flow,na.rm=T)/32)) #testing for increasing the visibility of plot B
               ylim.precip.max = max(ylim.flow)*3
               ylim.precip <- c(-ylim.precip.max,0)
 
@@ -1206,7 +1229,7 @@ setMethod(f="viterbi",signature=c("hydroState","data.frame","logical","numeric",
                 plot.range=par("usr")
                 text(plot.range[1]+diff(plot.range[1:2])*0.025, plot.range[3]+diff(par("usr")[3:4])*0.95, labels="", font=1, cex=2,pos=1)
               }
-
+             # browser()
               # Plot the cummulative rainfall residual.
               #--------------
 
@@ -1262,6 +1285,7 @@ setMethod(f="viterbi",signature=c("hydroState","data.frame","logical","numeric",
                 # Get the conditional probabilities.
                 zero.Flow = get.zeroFlow(.Object@Qhat.object)
                 emissionProbs = getEmissionDensity(.Object@QhatModel.object, data, zero.Flow, NA)
+                emissionProbs = getEmissionDensity(.Object@QhatModel.object, data, NA, .Object@Qhat.object)
                 state.probs = getConditionalStateProbabilities(.Object@markov.model.object, data[filt,], emissionProbs[filt,])
 
                 # Plot bar graph
@@ -1318,6 +1342,7 @@ setMethod(f="viterbi",signature=c("hydroState","data.frame","logical","numeric",
             }
 
           }
+
 )
 
 # @exportMethod check.viterbi
@@ -1342,7 +1367,7 @@ setMethod(f="check.viterbi",signature="hydroState",definition=function(.Object, 
   states.sample = generate.sample.states(.Object@markov.model.object, data)
 
   # Get a time series of Qhat using the sample states
-  Qhat.sample = generate.sample.Qhat.fromViterbi(.Object@QhatModel.object,data, states.sample)
+  Qhat.sample = generate.sample.Qhat.fromViterbi(.Object@QhatModel.object,data, states.sample, .Object@Qhat.object)
 
   data$Qhat.flow <- NULL
   data = cbind.data.frame(data, Qhat.flow = Qhat.sample)
@@ -1416,6 +1441,15 @@ setMethod(f="check.PseudoResiduals",signature="hydroState",definition=function(.
     zero.Flow = get.zeroFlow(.Object@Qhat.object)
     emissionDensity <- getEmissionDensity(.Object@QhatModel.object, data, zero.Flow, NA)
     emissionDensity[!filt,] <- NA
+    # if(NROW(delta)>1){
+
+      # Get the probabiity of the observed Qhat for each state at each time point.
+      # emissionDensity = lapply(1:NROW(delta), function(i) getEmissionDensity(.Object@QhatModel.object, data[delta[i,1]:delta[i,2],], NA))
+
+      # get emission densities
+      emissionDensity <- getEmissionDensity(.Object@QhatModel.object, data, NA, .Object@Qhat.object)
+      emissionDensity[!filt,] <- NA
+      # emissionDensity = matrix(emissionDensity,NROW(data),ntates)
 
     # Set the range in Qhat values at which to derive the conditional probs.
     Qhat.increments = seq(floor(min(Qhat[filt])),ceiling(max(Qhat[filt])),length.out=100)
@@ -1428,6 +1462,7 @@ setMethod(f="check.PseudoResiduals",signature="hydroState",definition=function(.
                                                     zero.Flow,
                                                     cumProb.threshold.Qhat = rep(Qhat.increments[j], nrow(data))
                                                     )
+      cumProb.increments[,,j] <- getEmissionDensity(.Object@QhatModel.object, data, cumProb.threshold.Qhat= rep(Qhat.increments[j], nrow(data)), .Object@Qhat.object)
     }
 
     # # Get the emission cumulative probs and sort for each state.
@@ -1594,7 +1629,7 @@ setMethod(f="check.PseudoResiduals",signature="hydroState",definition=function(.
       # Reset graphics options
       # par(op)
     }
-
+    #browser()
     if(do.plot){
       return(invisible())
     }else{
@@ -1620,7 +1655,7 @@ setMethod(f="drought.resilience.index",signature="hydroState",definition=functio
 
   # Generate 10,000 samples of Qhat at each time point and state.
   nSamples=10000
-  Qhat.sample = generate.sample.Qhat(.Object@QhatModel.object,data, nSamples=nSamples)
+  Qhat.sample = generate.sample.Qhat(.Object@QhatModel.object,data, nSamples=nSamples, .Object@Qhat.object)
 
   # Get viterbi years years during and after the user-defined drought
   filt.years.drought = states.viterbi[,1]>=year.drought.start & states.viterbi[,1]<=year.drought.end
