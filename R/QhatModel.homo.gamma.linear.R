@@ -97,9 +97,7 @@ setMethod(f="getDistributionPercentiles",
 # @exportMethod getEmissionDensity
 setMethod(f="getEmissionDensity",
           signature=c("QhatModel.homo.gamma.linear","data.frame", 'numeric'),
-          definition=function(.Object, data, zero.Flow, cumProb.threshold.Qhat)
-          signature=c("QhatModel.homo.gamma.linear","data.frame"),
-          definition=function(.Object, data, cumProb.threshold.Qhat, Qhat.object)
+          definition=function(.Object, data, zero.Flow, cumProb.threshold.Qhat, Qhat.object)
           {
 
             # Check Qhat is in data
